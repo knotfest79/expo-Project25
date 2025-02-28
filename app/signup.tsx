@@ -7,6 +7,26 @@ import { FormLabel } from "@/components/FromLabel";
 export default function SignUp() {
   const [email, SetEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [validPassword, setValidPassword] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+
+  useEffect(() => {
+    // check Password Length
+    if (password.length >= 8) {
+      setValidPassword(true);
+    } else {
+      setValidPassword(false);
+    }
+  }, [password]);
+
+  useEffect(() => {
+    if (email.includes("@") && email.indexOf("@") > 0) {
+      setValidEmail(true);
+    } else {
+      setValidEmail(false);
+    }
+  }, [email]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
@@ -26,7 +46,12 @@ export default function SignUp() {
           onChangeText={(val) => setPassword(val)}
         />
 
-        <Pressable style={styles.button}>
+        <Pressable
+          style={
+            validPassword && validEmail ? styles.button : styles.buttonDisabled
+          }
+          disabled={validPassword && validEmail ? false : true}
+        >
           <Text style={styles.buttonText}>Sign up</Text>
         </Pressable>
         <Link href="/">
@@ -66,5 +91,10 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "hsl(64, 60%, 90%)",
+  },
+  buttonDisabled: {
+    backgroundColor: "hsl(64, 60%, 50%)",
+    marginVertical: 15,
+    padding: 10,
   },
 });
