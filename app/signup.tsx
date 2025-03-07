@@ -2,17 +2,16 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FormLabel } from "@/components/FromLabel";
+import { FormLabel } from "@/components/FormLabel";
 
-export default function SignUp() {
-  const [email, SetEmail] = useState("");
+export default function Signup() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [validPassword, setValidPassword] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
 
   useEffect(() => {
-    // check Password Length
+    // check password length
     if (password.length >= 8) {
       setValidPassword(true);
     } else {
@@ -27,25 +26,24 @@ export default function SignUp() {
       setValidEmail(false);
     }
   }, [email]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Sign up</Text>
+        <Text style={styles.title}>Sign up for an account</Text>
         <FormLabel color="black" bg="transparent" text="Email" />
         <TextInput
           style={styles.input}
           value={email}
-          onChangeText={(val) => SetEmail(val)}
+          onChangeText={(val) => setEmail(val)}
         />
         <FormLabel color="black" bg="transparent" text="Password" />
-
         <TextInput
           style={styles.input}
           secureTextEntry={true}
           value={password}
           onChangeText={(val) => setPassword(val)}
         />
-
         <Pressable
           style={
             validPassword && validEmail ? styles.button : styles.buttonDisabled
@@ -55,7 +53,7 @@ export default function SignUp() {
           <Text style={styles.buttonText}>Sign up</Text>
         </Pressable>
         <Link href="/">
-          <Text>Go to login</Text>
+          <Text>Go to Login</Text>
         </Link>
       </View>
     </SafeAreaView>
@@ -65,7 +63,7 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFDE59",
+    backgroundColor: "hsl(64, 60%, 77%)",
   },
   form: {
     marginTop: 50,
